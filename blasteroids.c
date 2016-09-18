@@ -29,13 +29,13 @@ int init(void)
         fprintf(stderr, "failed 3\n");
         return -1;
     }
-/*
+
     font = al_load_ttf_font("/delia/Version3/orange juice 2.0.ttf",72,0 );
     if (!font){
           fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
           return -1;
        }
-*/
+
     timer = al_create_timer(1.0 / FPS);
     if(!timer) {
         fprintf(stderr, "failed 4\n");
