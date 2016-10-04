@@ -24,4 +24,21 @@ void draw_ship(Spaceship* s){
     al_draw_line(6, 4, 1, 4, s->color, 3.0f);
 }
 
+void move_spaceship(Spaceship *s)
+{
+    s->sx += s->speed * sin(s->heading);
+    s->sy -= s->speed * cos(s->heading);
+}
 
+void lives_of_spaceship(Spaceship *s2){
+    int l=1;
+            s2->sx=50.0;
+            s2->sy=20.0;
+            while(l<4){
+                s2->sx=50*l;
+                draw_ship(s2);
+                l++;
+
+            }
+
+}

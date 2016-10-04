@@ -7,8 +7,10 @@ enum MYKEYS {
 bool key[5] = {false, false, false, false, false};
 
 int k = 0;
-
-
+int i=0;
+int m=0;
+int n=0;
+Asteroid *link2=NULL;
 int init(void)
 {
     if(!al_init()) {
@@ -18,6 +20,7 @@ int init(void)
 
     al_init_font_addon();
     al_init_ttf_addon();
+
 
     if(!al_install_keyboard()) {
         fprintf(stderr, "failed 2\n");
@@ -30,7 +33,7 @@ int init(void)
         return -1;
     }
 
-    font = al_load_ttf_font("/delia/Version3/orange juice 2.0.ttf",72,0 );
+    font = al_load_ttf_font("/root/orange juice.ttf",72,0 );
     if (!font){
           fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
           return -1;
@@ -64,12 +67,20 @@ int init(void)
     return 0;
 }
 
-void spaceship(Spaceship *s, Asteroid *a, Blast *b)
+void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
+
 {
+    Spaceship *s2=malloc(sizeof(Spaceship)*4);
+    init_spaceship(s2);
     bool redraw = false;
+     Asteroid *link=NULL;
+     //Asteroid *a3;
+    //float radius = 30;
 
     while(1) {
         ALLEGRO_EVENT ev;
+        Asteroid *a1 = a;
+        Asteroid *aa1=aa;
         al_wait_for_event(event_queue, &ev);
 
         if(ev.type == ALLEGRO_EVENT_TIMER) {
@@ -81,16 +92,9 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b)
                 s->heading -= 0.08;
             if(key[KEY_RIGHT])
                 s->heading += 0.08;
- /*           if(key[KEY_SPACE]) {
-
+            if(key[KEY_SPACE]) {
+                init_blast(b, s);
             }
-
-
-            if(b->gone == 1) {
-                b = b->next;
-            }
-
-*/
 
 
             if(s->sx > SCREEN_W)
@@ -102,13 +106,20 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b)
             if(s->sy < 0)
                 s->sy += SCREEN_H;
 
-            move_asteroids(a);
+            move_asteroids(a1);
+            move_asteroids(aa1);
+            move_spaceship(s);
 
-            Asteroid *a1 = a;
 
+            a1 = a;
+            aa1=aa;
             while(a1->next) {
                 judge_asteroids(a1);
                 a1 = a1->next;
+            }
+           while(aa1->next) {
+                judge_asteroids(aa1);
+                aa1= aa1->next;
             }
 
             redraw = true;
@@ -163,7 +174,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b)
 
             case ALLEGRO_KEY_SPACE:
                 key[KEY_SPACE] = false;
-         //       b = b->next;
+                b = b->next;
                 break;
 
             default:
@@ -182,21 +193,42 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b)
 
 
             al_clear_to_color(al_map_rgb(50,10,70));
-
-
             s->sx += s->speed * sin(s->heading);
             s->sy -= s->speed * cos(s->heading);
-            draw_text();
+            draw_text(m);
             draw_ship(s);
+            lives_of_spaceship(s2);
 
-            Asteroid *a2 = a;
-            while(a2->next) {
-                draw_asteroid(a2);
-                a2 = a2->next;
-            }
+                    Asteroid *a2 = a;
+                    Asteroid *aa2=aa;
+                    while(a2->next) {
+                        draw_asteroid(a2);
+                        a2 = a2->next;
+                    }
+
+                    if(m){
+                        a2=a;
+                        asteroid_double(a2,m,aa2);
+                    }
 
 
-            al_flip_display();
+                    for(int j=0;j!=15;j++){
+
+                        move_blast(b);
+                        draw_blast(b);
+                        a2 = a;
+                        aa2=aa;
+                        //if(j==14){
+
+                            m=blast_hit_asteroid(b,a2,m,aa2);
+
+                        //}
+
+
+
+                        b = b->next;
+                    }
+                    al_flip_display();
         }
 
     }

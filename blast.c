@@ -8,7 +8,7 @@ void draw_blast(Blast *b)
     al_translate_transform(&transform,b->sx,b->sy);
     al_use_transform(&transform);
 
-    al_draw_line(0, -10, 0, -20, b->color,3.0f);
+    al_draw_line(0, -10, 0, -20, b->color, 3.0f);
 }
 
 void init_blast(Blast *b, Spaceship *s)
@@ -29,7 +29,7 @@ Blast *init_blasts(void)
         b[i]->sx = 0;
         b[i]->sy = 0;
         b[i]->color = al_map_rgb(255,255,255);
-        b[i]->gone = 0;
+        b[i]->gone = 1;
         b[i]->heading = 0;
         b[i]->next = b[i+1];
     }
@@ -42,7 +42,6 @@ Blast *init_blasts(void)
 
     return b[0];
 }
-
 void move_blast(Blast *b)
 {
     if(b->sx > 0 && b->sx < SCREEN_W && b->sy > 0 && b->sy <SCREEN_H) {

@@ -18,7 +18,7 @@ static float SPEED_MAX = 5.0;
 static float SPEED_MIN = 0.2;
 static float LIVES = 3;
 static float FPS = 60;
-
+static float radius=30;
 
 
 ALLEGRO_DISPLAY *display;
@@ -49,6 +49,7 @@ typedef struct p{
     struct p *next;
 }P;
 
+
 typedef struct asteroid{
     float sx;
     float sy;
@@ -62,29 +63,36 @@ typedef struct asteroid{
     float sx_add;
     float sy_add;
     ALLEGRO_COLOR color;
-    struct asteroid *next;
+    struct asteroid * next;
+    int singal;
+
 }Asteroid;
 
 
 
 //blasteroids.c
 int init(void);
-void spaceship(Spaceship *s, Asteroid *a, Blast *b);
+void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa);
 
 //spaceship.c
 void init_spaceship(Spaceship *s);
 void draw_ship(Spaceship* s);
-
+void move_spaceship(Spaceship* s);
+void lives_of_spaceship(Spaceship *s2);
 //asteroid.c
 void draw_asteroid(Asteroid *a);
 void init_asteroid(Asteroid *a);
 Asteroid *init_asteroids(void);
 void move_asteroids(Asteroid *a);
 void judge_asteroids(Asteroid *a);
-
+int blast_hit_asteroid(Blast *b,Asteroid *a,int num1,Asteroid *aa);
+void asteroid_double(Asteroid *a,int num,Asteroid *aa);
+void destroy_asteroid(Asteroid *a,Asteroid *link);
 //text.c
-void draw_text(void);
+void draw_text(int i);
+char *itoa(int i,char *string);
 // P *init_ps(void);
+void draw_text2(void);
 
 //blast.c
 void init_blast(Blast *b, Spaceship *s);

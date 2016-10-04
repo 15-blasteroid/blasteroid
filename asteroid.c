@@ -20,7 +20,8 @@ void draw_asteroid(Asteroid *a)
         al_draw_line(20 * a->scale, 10 * a->scale, 10 * a->scale, 20 * a->scale, a->color, 2.0f);
         al_draw_line(10 * a->scale, 20 * a->scale, 0 * a->scale, 15 * a->scale, a->color, 2.0f);
         al_draw_line(0 * a->scale, 15 * a->scale, -20 * a->scale, 20 * a->scale, a->color, 2.0f);
-};
+
+}
 
 void init_asteroid(Asteroid *a)
 {
@@ -32,11 +33,12 @@ void init_asteroid(Asteroid *a)
     a->scale = 1;
     a->rot_velocity = 0;
     a->speed = 0;
-    a->twist = 2.5;
+    a->twist = 0;
     a->sx_add = 0;
     a->sy_add = 0;
     a->twist_add = 0;
     a->next = NULL;
+    a->singal=0;
 }
 
 Asteroid *init_asteroids(void)
@@ -49,12 +51,13 @@ Asteroid *init_asteroids(void)
         init_asteroid(a[i]);
         if(i != 20) {
             a[i-1]->next = a[i];
-            srand(i * (unsigned)time(NULL));
+
             a[i-1]->sx = (rand() / (double)RAND_MAX) * SCREEN_W;
             a[i-1]->sy = (rand() / (double)RAND_MAX) * SCREEN_H;
             a[i-1]->sx_add = (rand() / (double)RAND_MAX) * 1;
             a[i-1]->sy_add = (rand() / (double)RAND_MAX) * 1;
             a[i-1]->twist_add = (rand() / (double)RAND_MAX) * 0.1;
+
 
             if(!(i % 3))
                 a[i-1]->color = al_map_rgb(255, 0, 0);
@@ -67,13 +70,14 @@ Asteroid *init_asteroids(void)
         }
     }
 
+
     return a[0];
 }
 
 void move_asteroids(Asteroid *a)
 {
     Asteroid *a1 = a;
-    while(a1->next) {
+    while(a1) {
         a1->twist += a1->twist_add;
         a1->sx += a1->sx_add;
         a1->sy += a1->sy_add;
@@ -96,3 +100,47 @@ void judge_asteroids(Asteroid *a)
 
 
 }
+int blast_hit_asteroid(Blast *b,Asteroid *a,int num1,Asteroid *aa){
+    Asteroid *link=NULL;
+    Asteroid *aa1=aa;
+    while(a->next) {
+        if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2)) <            pow(radius, 2)&&a->scale==1) {
+
+            draw_text2();
+            a->scale=0.5;
+            num1++;
+
+        }else if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2)) <            pow(radius, 2)&&a->scale==0.5) {
+                destroy_asteroid(a,link);
+                //num1--;
+            }
+
+        link=a;
+        a=a->next;
+    }
+    return num1;
+
+}
+
+void asteroid_double(Asteroid *a,int num,Asteroid *aa){
+    while(a->next){
+       int i=0;
+            if(a->scale==0.5&&i!=num){
+                aa->color=a->color;
+                aa->scale=0.5;
+                //aa->sx=a->sx+50.0;
+                //aa->sy=a->sy+50.0;
+                draw_asteroid(aa);
+                aa=aa->next;
+            }
+
+          a=a->next;
+   }
+}
+void destroy_asteroid(Asteroid *a,Asteroid *link){
+    Asteroid *link1=a;
+    link->next=a->next;
+    free(link1);
+
+}
+
