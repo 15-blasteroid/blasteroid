@@ -8,8 +8,8 @@ void draw_text(int i)
     al_use_transform(&transform);
     char str[10];
     int score=100*i;
-     char *text=itoa(score,str);
-    al_draw_text(font, al_map_rgb(255,255,255), 60, 0,ALLEGRO_ALIGN_CENTER,text);
+    // char *text=itoa(score,str);
+    //al_draw_text(font, al_map_rgb(255,255,255), 60, 0,ALLEGRO_ALIGN_CENTER,text);
 
       //  al_draw_text(font, al_map_rgb(255,255,255), 60, 0,ALLEGRO_ALIGN_CENTER, "you have win");
 
@@ -44,14 +44,18 @@ P *init_ps(void){
     return p1[0];
 }
 */
-char *itoa(int i,char *string){
-    int power=0;
-    int j=0;
-    for(;power>0;power/=10){
-        *string++='0'+i/power;
-        i%=power;
-    }
-        *string='\0';
+//char *itoa(int val,char *buf,unsigned radix){
+//    char *p;
+//    char *firstdig;
+//    char temp;
+//    unsigned digval;
+//    p=buf;
+//    if(val<0){
+//        *p++='-';
+//        val=(unsigned long)(-(long)val);
 
-    return string;
-}
+//    }
+//    fisrtdig=p;
+
+
+//}

@@ -62,12 +62,8 @@ int init(void)
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     al_start_timer(timer);
-/*
-    al_clear_to_color(al_map_rgb(0,255,0));
-    al_flip_display();
-    al_rest(2.0);
-*/
-    //al_clear_to_color(al_map_rgb(0,0,0));
+
+    al_clear_to_color(al_map_rgb(0,0,0));
 
     return 0;
 }
@@ -201,14 +197,12 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
             al_rotate_transform(&transform, 0);
             al_translate_transform(&transform,0,0);
             al_use_transform(&transform);
-            al_clear_to_color(al_map_rgb(0,0,0));
-            al_draw_bitmap(bmp,0,0,0);
+            //al_draw_bitmap(bmp,0,0,0);
             al_flip_display();
-
             al_clear_to_color(al_map_rgb(50,10,70));
             s->sx += s->speed * sin(s->heading);
             s->sy -= s->speed * cos(s->heading);
-            draw_text(m);
+            //draw_text(m);
             draw_ship(s);
             lives_of_spaceship(s2);
 
@@ -231,9 +225,9 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
                         draw_blast(b);
                         a2 = a;
                         aa2=aa;
-                        //if(j==14){
+                       // if(j==14){
 
-                            m=blast_hit_asteroid(b,a2,m,aa2);
+                        m=blast_hit_asteroid(b,a2,m,aa2);
 
                         //}
 

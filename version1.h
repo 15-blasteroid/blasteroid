@@ -12,7 +12,6 @@
 #include <allegro5/allegro_image.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #pragma comment(lib,"allegro-5.0.7-mt-debug.lib")
 #pragma comment(lib,"allegro_image-5.0.7-mt-debug.lib")
 static int SCREEN_W = 640;
@@ -88,11 +87,13 @@ void lives_of_spaceship(Spaceship *s2);
 void draw_asteroid(Asteroid *a);
 void init_asteroid(Asteroid *a);
 Asteroid *init_asteroids(void);
+Asteroid *init_asteroids2(void);
 void move_asteroids(Asteroid *a);
 void judge_asteroids(Asteroid *a);
 int blast_hit_asteroid(Blast *b,Asteroid *a,int num1,Asteroid *aa);
 void asteroid_double(Asteroid *a,int num,Asteroid *aa);
 void destroy_asteroid(Asteroid *a,Asteroid *link);
+
 //text.c
 void draw_text(int i);
 char *itoa(int i,char *string);

@@ -26,15 +26,15 @@ Blast *init_blasts(void)
     for(int i = 0; i != 15; i++)
         b[i] = malloc(sizeof(Blast));
     for(int i = 0; i != 14; i++) {
-        b[i]->sx = 0;
-        b[i]->sy = 0;
+        b[i]->sx = SCREEN_W * 2;
+        b[i]->sy = SCREEN_H * 2;
         b[i]->color = al_map_rgb(255,255,255);
         b[i]->gone = 1;
         b[i]->heading = 0;
         b[i]->next = b[i+1];
     }
-    b[14]->sx = 0;
-    b[14]->sy = 0;
+    b[14]->sx = SCREEN_W * 2;
+    b[14]->sy = SCREEN_H * 2;
     b[14]->color = al_map_rgb(255,255,255);
     b[14]->gone = 0;
     b[14]->heading = 0;
@@ -44,7 +44,7 @@ Blast *init_blasts(void)
 }
 void move_blast(Blast *b)
 {
-    if(b->sx > 0 && b->sx < SCREEN_W && b->sy > 0 && b->sy <SCREEN_H) {
+    if(b->sx > 0 && b->sx < SCREEN_W&&b->sy > 0 && b->sy <SCREEN_H) {
         b->sx += SPEED_MAX  * 2 * sin(b->heading);
         b->sy -= SPEED_MAX  * 2 * cos(b->heading);
     } else

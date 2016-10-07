@@ -46,6 +46,8 @@ Asteroid *init_asteroids(void)
     Asteroid *a[20];
     a[0] = malloc(sizeof(Asteroid));
     init_asteroid(a[0]);
+    a[0]->scale=0;
+//    a[0]->sy=SCREEN_H*3;
     for(int i = 1; i != 20; i++) {
         a[i] = malloc(sizeof(Asteroid));
         init_asteroid(a[i]);
@@ -59,7 +61,9 @@ Asteroid *init_asteroids(void)
             a[i-1]->twist_add = (rand() / (double)RAND_MAX) * 0.1;
 
 
-            if(!(i % 3))
+            if(i == 1)
+                a[1]->color = al_map_rgb(0, 255, 0);
+            else if(!(i % 3))
                 a[i-1]->color = al_map_rgb(255, 0, 0);
             else if(!(i % 7))
                 a[i-1]->color = al_map_rgb(0, 255, 0);
@@ -69,6 +73,11 @@ Asteroid *init_asteroids(void)
                 a[i-1]->color = al_map_rgb(189, 0, 200);
         }
     }
+
+//    a[0]->sx=SCREEN_W+10;
+//    a[0]->sy=SCREEN_H+10;
+//    a[0]->sx_add=0;
+//    a[0]->sy_add=0;
 
 
     return a[0];
@@ -102,21 +111,38 @@ void judge_asteroids(Asteroid *a)
 }
 int blast_hit_asteroid(Blast *b,Asteroid *a,int num1,Asteroid *aa){
     Asteroid *link=NULL;
+    Asteroid *link1=NULL;
     Asteroid *aa1=aa;
+    int j=0;
     while(a->next) {
-        if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2)) <            pow(radius, 2)&&a->scale==1) {
+        if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2))<pow(radius, 2)&&a->scale==1) {
 
             draw_text2();
             a->scale=0.5;
             num1++;
 
-        }else if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2)) <            pow(radius, 2)&&a->scale==0.5) {
-                destroy_asteroid(a,link);
-                //num1--;
-            }
-
+        }else if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2))<            pow(radius, 2)&&a->scale==0.5) {
+//            if(j==0){
+//                free(a);
+//            }
+//            j++;
+            destroy_asteroid(a,link);
+        }
         link=a;
         a=a->next;
+    }
+//    if(!a->next){
+//        if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2))<pow(radius, 2)&&a->scale==0.5) {
+//            free(a);
+//        }
+//    }
+    while(aa1->next){
+        if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy),2)) <pow(radius, 2)&&a->scale==0.5){
+            destroy_asteroid(a,link1);
+        }
+        num1--;
+        link1=aa1;
+        aa1=aa1->next;
     }
     return num1;
 
@@ -128,8 +154,6 @@ void asteroid_double(Asteroid *a,int num,Asteroid *aa){
             if(a->scale==0.5&&i!=num){
                 aa->color=a->color;
                 aa->scale=0.5;
-                //aa->sx=a->sx+50.0;
-                //aa->sy=a->sy+50.0;
                 draw_asteroid(aa);
                 aa=aa->next;
             }
@@ -142,5 +166,40 @@ void destroy_asteroid(Asteroid *a,Asteroid *link){
     link->next=a->next;
     free(link1);
 
+}
+
+Asteroid *init_asteroids2(void)
+{
+    Asteroid *a[20];
+    a[0] = malloc(sizeof(Asteroid));
+    init_asteroid(a[0]);
+    for(int i = 1; i != 20; i++) {
+        a[i] = malloc(sizeof(Asteroid));
+        init_asteroid(a[i]);
+        if(i != 20) {
+            a[i-1]->next = a[i];
+
+            a[i-1]->sx = (rand() / (double)RAND_MAX) * SCREEN_W;
+            a[i-1]->sy = (rand() / (double)RAND_MAX) * SCREEN_H;
+            a[i-1]->sx_add = (rand() / (double)RAND_MAX) * 1;
+            a[i-1]->sy_add = (rand() / (double)RAND_MAX) * 1;
+            a[i-1]->twist_add = (rand() / (double)RAND_MAX) * 0.1;
+
+
+            if(i == 1)
+                a[1]->color = al_map_rgb(0, 255, 0);
+            else if(!(i % 3))
+                a[i-1]->color = al_map_rgb(255, 0, 0);
+            else if(!(i % 7))
+                a[i-1]->color = al_map_rgb(0, 255, 0);
+            else if(!(i % 2))
+                a[i-1]->color = al_map_rgb(0, 0, 255);
+            else
+                a[i-1]->color = al_map_rgb(189, 0, 200);
+        }
+    }
+
+
+    return a[0];
 }
 

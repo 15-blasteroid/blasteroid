@@ -10,8 +10,11 @@ int main(void)
     Spaceship *s = malloc(sizeof(Spaceship));
     init_spaceship(s);
     Asteroid *a,*aa;
+//    Asteroid *a_before = malloc(sizeof(Asteroid));
+//    init_asteroid(a_before);
     a = init_asteroids();
-    aa =init_asteroids();
+//    a_before->next = a;
+    aa =init_asteroids2();
 
     Blast *b;
     b = init_blasts();
