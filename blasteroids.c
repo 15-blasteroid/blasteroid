@@ -198,7 +198,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
             al_rotate_transform(&transform, 0);
             al_translate_transform(&transform,0,0);
             al_use_transform(&transform);
-            //al_draw_bitmap(bmp,0,0,0);
+            al_draw_bitmap(bmp,0,0,0);
             al_flip_display();
             al_clear_to_color(al_map_rgb(50,10,70));
             s->sx += s->speed * sin(s->heading);
