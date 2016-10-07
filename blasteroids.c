@@ -11,13 +11,14 @@ int i=0;
 int m=0;
 int n=0;
 Asteroid *link2=NULL;
+ALLEGRO_BITMAP *bmp=NULL;
 int init(void)
 {
     if(!al_init()) {
         fprintf(stderr, "failed 1\n");
         return -1;
     }
-
+    al_init_image_addon();
     al_init_font_addon();
     al_init_ttf_addon();
 
@@ -26,6 +27,8 @@ int init(void)
         fprintf(stderr, "failed 2\n");
         return -1;
     }
+    bmp=al_load_bitmap("asteroid.jpg");
+    if(!bmp) return -1;
 
     display = al_create_display(640, 480);
     if(!display) {
@@ -64,12 +67,15 @@ int init(void)
     al_flip_display();
     al_rest(2.0);
 */
+    //al_clear_to_color(al_map_rgb(0,0,0));
+
     return 0;
 }
 
 void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
 
 {
+
     Spaceship *s2=malloc(sizeof(Spaceship)*4);
     init_spaceship(s2);
     bool redraw = false;
@@ -78,6 +84,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
     //float radius = 30;
 
     while(1) {
+
         ALLEGRO_EVENT ev;
         Asteroid *a1 = a;
         Asteroid *aa1=aa;
@@ -189,8 +196,14 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
 
         if(redraw && al_is_event_queue_empty(event_queue)) {
             redraw = false;
-
-
+            ALLEGRO_TRANSFORM transform;
+            al_identity_transform(&transform);
+            al_rotate_transform(&transform, 0);
+            al_translate_transform(&transform,0,0);
+            al_use_transform(&transform);
+            al_clear_to_color(al_map_rgb(0,0,0));
+            al_draw_bitmap(bmp,0,0,0);
+            al_flip_display();
 
             al_clear_to_color(al_map_rgb(50,10,70));
             s->sx += s->speed * sin(s->heading);

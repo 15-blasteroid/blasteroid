@@ -1,6 +1,4 @@
 #include "version1.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 void draw_text(int i)
 {

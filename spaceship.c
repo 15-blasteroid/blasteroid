@@ -42,3 +42,6 @@ void lives_of_spaceship(Spaceship *s2){
             }
 
 }
+//void asteroid_hit_the_spaceship(Spaceship *s,Asteroid *a){
+
+//}

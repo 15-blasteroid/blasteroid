@@ -13,4 +13,4 @@ SOURCES += main.c \
 HEADERS += \
     version1.h
 
-LIBS += -L/usr/lib -lallegro -lallegro_primitives -lm -lallegro_font -lallegro_ttf
+LIBS += -L/usr/lib -lallegro -lallegro_primitives -lm -lallegro_font -lallegro_ttf -lallegro_image

@@ -9,7 +9,12 @@
 #include <time.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_image.h>
+#include <stdio.h>
+#include <stdlib.h>
 
+#pragma comment(lib,"allegro-5.0.7-mt-debug.lib")
+#pragma comment(lib,"allegro_image-5.0.7-mt-debug.lib")
 static int SCREEN_W = 640;
 static int SCREEN_H = 480;
 static float INITIAL_HEADING = 0;
