@@ -95,10 +95,12 @@ void asteroid_double(Asteroid *a,int num,Asteroid *aa);
 void destroy_asteroid(Asteroid *a,Asteroid *link);
 
 //text.c
-void draw_text(int i);
+//void draw_text(int i);
 char *itoa(int i,char *string);
 // P *init_ps(void);
-void draw_text2(void);
+void draw_text2(char *s);
+char *reverse(char *s);
+char *my_itoa(int n);
 
 //blast.c
 void init_blast(Blast *b, Spaceship *s);

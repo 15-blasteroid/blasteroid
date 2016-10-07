@@ -75,6 +75,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
     Spaceship *s2=malloc(sizeof(Spaceship)*4);
     init_spaceship(s2);
     bool redraw = false;
+
      Asteroid *link=NULL;
      //Asteroid *a3;
     //float radius = 30;
@@ -235,6 +236,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
 
                         b = b->next;
                     }
+
                     al_flip_display();
         }
 

@@ -1,5 +1,5 @@
 #include "version1.h"
-
+int grade=0;
 void draw_asteroid(Asteroid *a)
 {
     ALLEGRO_TRANSFORM transform;
@@ -114,18 +114,28 @@ int blast_hit_asteroid(Blast *b,Asteroid *a,int num1,Asteroid *aa){
     Asteroid *link1=NULL;
     Asteroid *aa1=aa;
     int j=0;
+    int nnn = 0;
+
+    draw_text2(my_itoa(grade));
     while(a->next) {
         if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2))<pow(radius, 2)&&a->scale==1) {
+            nnn = 1;
 
-            draw_text2();
+            if(nnn == 1) {
+                grade = grade + 100;
+                draw_text2(my_itoa(grade));
+            }
+
+            nnn = 0;
+//            draw_text2(my_itoa(grade));
             a->scale=0.5;
             num1++;
 
         }else if((pow(fabs(b->sx - a->sx), 2) + pow(fabs(b->sy - a->sy), 2))<            pow(radius, 2)&&a->scale==0.5) {
-//            if(j==0){
-//                free(a);
-//            }
-//            j++;
+            //            if(j==0){
+            //                free(a);
+            //            }
+            //            j++;
             destroy_asteroid(a,link);
         }
         link=a;
