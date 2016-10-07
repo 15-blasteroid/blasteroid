@@ -1,5 +1,6 @@
 #include "version1.h"
 
+//int my_time=10;
 
 void init_spaceship(Spaceship *s)
 {
@@ -7,7 +8,7 @@ void init_spaceship(Spaceship *s)
     s->sy = SCREEN_H / 2.0;
     s->heading = INITIAL_HEADING;
     s->speed = INITIAL_SPEED;
-    s->gone = 5;
+    s->gone = 1;
     s->color = al_map_rgb(255, 255, 255);
 }
 
@@ -32,39 +33,41 @@ void move_spaceship(Spaceship *s)
 
 void lives_of_spaceship(Spaceship *s2,Spaceship *s){
     int l=1;
-            s2->sx=50.0;
-            s2->sy=20.0;
-            while(l<(s->gone+1)){
-                s2->sx=50*l;
-                draw_ship(s2);
-                l++;
-            }
+    s2->sx=50.0;
+    s2->sy=20.0;
+    while(l<(s->gone+1)){
+        s2->sx=50*l;
+        draw_ship(s2);
+        l++;
+    }
 
 }
 void asteroid_hit_the_spaceship(Spaceship *s,Asteroid *a,Asteroid *aa){
-    int tmp = 0;
-    while(a->next){
-        if((pow(fabs(s->sx - a->sx), 2) + pow(fabs(s->sy - a->sy), 2))<pow(radius, 2)) {
-            a = a->next;
-            tmp = tmp + 1;
-            printf("%d ", tmp);
+    if(my_time < 0) {
+        int tmp = 0;
+        while(a->next){
+            if((pow(fabs(s->sx - a->sx), 2) + pow(fabs(s->sy - a->sy), 2))<pow(radius, 2)) {
+                my_time = 70;
+                tmp = tmp + 1;
+            }
+            a=a->next;
         }
-        a=a->next;
-    }
 
-//    while(aa->next){
-//        if((pow(fabs(s->sx - aa->sx), 2) + pow(fabs(s->sy - aa->sy), 2))<pow(radius, 2)) {
-//            tmp = 1;
-//            if(tmp == 1) {
-//                s->gone--;
-//            }
-//        }
-//        aa=aa->next;
-//    }
+        //    while(aa->next){
+        //        if((pow(fabs(s->sx - aa->sx), 2) + pow(fabs(s->sy - aa->sy), 2))<pow(radius, 2)) {
+        //            tmp = 1;
+        //            if(tmp == 1) {
+        //                s->gone--;
+        //            }
+        //        }
+        //        aa=aa->next;
+        //    }
 
-    if(tmp != 1) {
-        s->gone = s->gone-tmp;
+        if(tmp != 0) {
+            s->gone = s->gone-tmp;
+        }
     }
+    my_time--;
 
 
 }

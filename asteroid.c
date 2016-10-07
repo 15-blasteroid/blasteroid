@@ -109,7 +109,7 @@ void judge_asteroids(Asteroid *a)
 
 
 }
-int blast_hit_asteroid(Blast *b,Asteroid *a,int num1,Asteroid *aa){
+int blast_hit_asteroid(Blast *b,Asteroid *a,int num1,Asteroid *aa,int *grade1){
     Asteroid *link=NULL;
     Asteroid *link1=NULL;
     Asteroid *aa1=aa;
@@ -123,6 +123,7 @@ int blast_hit_asteroid(Blast *b,Asteroid *a,int num1,Asteroid *aa){
 
             if(nnn == 1) {
                 grade = grade + 100;
+                *grade1=grade;
                 draw_text2(my_itoa(grade));
             }
 

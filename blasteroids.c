@@ -68,7 +68,7 @@ int init(void)
     return 0;
 }
 
-void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
+int spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
 
 {
 
@@ -80,7 +80,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
     //Asteroid *a3;
     //float radius = 30;
 
-    while(1) {
+    while(s->gone) {
 
         ALLEGRO_EVENT ev;
         Asteroid *a1 = a;
@@ -198,7 +198,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
             al_rotate_transform(&transform, 0);
             al_translate_transform(&transform,0,0);
             al_use_transform(&transform);
-            //al_draw_bitmap(bmp,0,0,0);
+            al_draw_bitmap(bmp,0,0,0);
             al_flip_display();
             al_clear_to_color(al_map_rgb(50,10,70));
             s->sx += s->speed * sin(s->heading);
@@ -223,7 +223,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
                 asteroid_double(a2,m,aa2);
             }
 
-//            asteroid_hit_the_spaceship(s,a2,aa2);
+
 
             for(int j=0;j!=15;j++){
 
@@ -233,7 +233,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
                 aa2=aa;
                 // if(j==14){
 
-                m=blast_hit_asteroid(b,a2,m,aa2);
+                m=blast_hit_asteroid(b,a2,m,aa2,&score);
 
                 //}
 
@@ -246,5 +246,8 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
         }
 
     }
+    al_destroy_display(display);
+
+    return score;
 
 }

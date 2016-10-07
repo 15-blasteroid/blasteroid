@@ -8,7 +8,8 @@ SOURCES += main.c \
     asteroid.c \
     text.c \
     spaceship.c \
-    blasteroids.c
+    blasteroids.c \
+    end.c
 
 HEADERS += \
     version1.h

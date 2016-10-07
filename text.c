@@ -1,13 +1,13 @@
 #include "version1.h"
 
-void draw_text(void)
+void draw_text(char *s, int x, int y)
 {
     ALLEGRO_TRANSFORM transform;
     al_identity_transform(&transform);
-    al_translate_transform(&transform, 0, 10);
+    al_translate_transform(&transform, x, y);
     al_use_transform(&transform);
 
-    al_draw_text(font, al_map_rgb(255,255,255), 60, 0,ALLEGRO_ALIGN_CENTER, "600!");
+    al_draw_text(font, al_map_rgb(255,255,255), 60, 0,ALLEGRO_ALIGN_CENTER, s);
 }
 
 void draw_text2(char *s)

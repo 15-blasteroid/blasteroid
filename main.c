@@ -28,7 +28,12 @@ int main(void)
 
 
 
-    spaceship(s, a, b,aa);
+    int score = spaceship(s, a, b,aa);
+    printf("%d",score);
+
+    gameover(score);
+
+
 
 
     return 0;
