@@ -38,9 +38,9 @@ int init(void)
 
     font = al_load_ttf_font("/root/orange juice.ttf",72,0 );
     if (!font){
-          fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
-          return -1;
-       }
+        fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
+        return -1;
+    }
 
     timer = al_create_timer(1.0 / FPS);
     if(!timer) {
@@ -76,8 +76,8 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
     init_spaceship(s2);
     bool redraw = false;
 
-     Asteroid *link=NULL;
-     //Asteroid *a3;
+    Asteroid *link=NULL;
+    //Asteroid *a3;
     //float radius = 30;
 
     while(1) {
@@ -121,7 +121,7 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
                 judge_asteroids(a1);
                 a1 = a1->next;
             }
-           while(aa1->next) {
+            while(aa1->next) {
                 judge_asteroids(aa1);
                 aa1= aa1->next;
             }
@@ -198,46 +198,51 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa)
             al_rotate_transform(&transform, 0);
             al_translate_transform(&transform,0,0);
             al_use_transform(&transform);
-            al_draw_bitmap(bmp,0,0,0);
+            //al_draw_bitmap(bmp,0,0,0);
             al_flip_display();
             al_clear_to_color(al_map_rgb(50,10,70));
             s->sx += s->speed * sin(s->heading);
             s->sy -= s->speed * cos(s->heading);
             //draw_text(m);
             draw_ship(s);
-            lives_of_spaceship(s2);
+            Asteroid *a2 = a;
+            Asteroid *aa2=aa;
 
-                    Asteroid *a2 = a;
-                    Asteroid *aa2=aa;
-                    while(a2->next) {
-                        draw_asteroid(a2);
-                        a2 = a2->next;
-                    }
+            asteroid_hit_the_spaceship(s,a2,aa2);
 
-                    if(m){
-                        a2=a;
-                        asteroid_double(a2,m,aa2);
-                    }
+            lives_of_spaceship(s2,s);
 
 
-                    for(int j=0;j!=15;j++){
+            while(a2->next) {
+                draw_asteroid(a2);
+                a2 = a2->next;
+            }
 
-                        move_blast(b);
-                        draw_blast(b);
-                        a2 = a;
-                        aa2=aa;
-                       // if(j==14){
+            if(m){
+                a2=a;
+                asteroid_double(a2,m,aa2);
+            }
 
-                        m=blast_hit_asteroid(b,a2,m,aa2);
+//            asteroid_hit_the_spaceship(s,a2,aa2);
 
-                        //}
+            for(int j=0;j!=15;j++){
+
+                move_blast(b);
+                draw_blast(b);
+                a2 = a;
+                aa2=aa;
+                // if(j==14){
+
+                m=blast_hit_asteroid(b,a2,m,aa2);
+
+                //}
 
 
 
-                        b = b->next;
-                    }
+                b = b->next;
+            }
 
-                    al_flip_display();
+            al_flip_display();
         }
 
     }

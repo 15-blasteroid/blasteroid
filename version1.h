@@ -82,7 +82,8 @@ void spaceship(Spaceship *s, Asteroid *a, Blast *b,Asteroid *aa);
 void init_spaceship(Spaceship *s);
 void draw_ship(Spaceship* s);
 void move_spaceship(Spaceship* s);
-void lives_of_spaceship(Spaceship *s2);
+void lives_of_spaceship(Spaceship *s2,Spaceship *s);
+void asteroid_hit_the_spaceship(Spaceship *s,Asteroid *a,Asteroid *aa);
 //asteroid.c
 void draw_asteroid(Asteroid *a);
 void init_asteroid(Asteroid *a);
